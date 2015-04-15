@@ -1,0 +1,3 @@
+[submodule "shared/bulbulator"]
+	path = shared/bulbulator
+	url = git@github.com:NexwayGroup/bulbulator

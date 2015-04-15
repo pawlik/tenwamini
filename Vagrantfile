@@ -12,7 +12,7 @@ Vagrant.configure(2) do |config|
 
   # Every Vagrant development environment requires a box. You can search for
   # boxes at https://atlas.hashicorp.com/search.
-  config.vm.box = "hashicorp/precise64"
+  config.vm.box = "ubuntu/trusty64"
 
   # Disable automatic box update checking. If you disable this, then
   # boxes will only be checked for updates when the user runs
@@ -50,6 +50,7 @@ Vagrant.configure(2) do |config|
      # Customize the amount of memory on the VM:
      vb.memory = "20148"
      vb.cpus = 2
+
   end
 
   #
@@ -76,7 +77,8 @@ Vagrant.configure(2) do |config|
 
 
     sudo apt-key adv --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 0xcbcb082a1bb943db
-    sudo add-apt-repository -y 'deb http://ftp.yz.yamagata-u.ac.jp/pub/dbms/mariadb/repo/5.5/ubuntu precise main'
+    sudo add-apt-repository -y 'deb http://ftp.yz.yamagata-u.ac.jp/pub/dbms/mariadb/repo/5.5/ubuntu trusty main'
+
 
     # php5.6
     sudo apt-add-repository -y ppa:ondrej/php5
@@ -86,7 +88,7 @@ Vagrant.configure(2) do |config|
     # below allows non-interactibe install of mariaDB
     echo "mysql-server-5.6 mysql-server/root_password password root" | sudo debconf-set-selections
     echo "mysql-server-5.6 mysql-server/root_password_again password root" | sudo debconf-set-selections
-    sudo apt-get install -y mariadb-server nginx php5-fpm php5-cli vim
+    sudo apt-get install -y mariadb-server nginx php5-fpm php5-cli vim git
     
   SHELL
 end
