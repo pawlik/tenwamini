@@ -22,7 +22,7 @@ Vagrant.configure(2) do |config|
   # Create a forwarded port mapping which allows access to a specific port
   # within the machine from a port on the host machine. In the example below,
   # accessing "localhost:8080" will access port 80 on the guest machine.
-  # config.vm.network "forwarded_port", guest: 80, host: 8080
+  config.vm.network "forwarded_port", guest: 80, host: 8080
 
   # Create a private network, which allows host-only access to the machine
   # using a specific IP.
@@ -37,19 +37,21 @@ Vagrant.configure(2) do |config|
   # the path on the host to the actual folder. The second argument is
   # the path on the guest to mount the folder. And the optional third
   # argument is a set of non-required options.
-  # config.vm.synced_folder "../data", "/vagrant_data"
+  config.vm.synced_folder "./shared", "/vagrant_shared"
 
   # Provider-specific configuration so you can fine-tune various
   # backing providers for Vagrant. These expose provider-specific options.
   # Example for VirtualBox:
   #
-  # config.vm.provider "virtualbox" do |vb|
-  #   # Display the VirtualBox GUI when booting the machine
-  #   vb.gui = true
-  #
-  #   # Customize the amount of memory on the VM:
-  #   vb.memory = "1024"
-  # end
+  config.vm.provider "virtualbox" do |vb|
+     # Display the VirtualBox GUI when booting the machine
+     vb.gui = false 
+  
+     # Customize the amount of memory on the VM:
+     vb.memory = "20148"
+     vb.cpus = 2
+  end
+
   #
   # View the documentation for the provider you are using for more
   # information on available options.
@@ -74,13 +76,17 @@ Vagrant.configure(2) do |config|
 
 
     sudo apt-key adv --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 0xcbcb082a1bb943db
-    sudo add-apt-repository 'deb http://ftp.yz.yamagata-u.ac.jp/pub/dbms/mariadb/repo/5.5/ubuntu precise main'
+    sudo add-apt-repository -y 'deb http://ftp.yz.yamagata-u.ac.jp/pub/dbms/mariadb/repo/5.5/ubuntu precise main'
+
+    # php5.6
+    sudo apt-add-repository -y ppa:ondrej/php5
 
     sudo apt-get update
 
     # below allows non-interactibe install of mariaDB
     echo "mysql-server-5.6 mysql-server/root_password password root" | sudo debconf-set-selections
     echo "mysql-server-5.6 mysql-server/root_password_again password root" | sudo debconf-set-selections
-    sudo apt-get install -y mariadb-server nginx
+    sudo apt-get install -y mariadb-server nginx php5-fpm php5-cli vim
+    
   SHELL
 end
